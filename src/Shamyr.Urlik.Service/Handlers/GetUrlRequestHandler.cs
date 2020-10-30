@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Shamyr.AspNetCore.Retrievers;
 using Shamyr.Logging;
 using Shamyr.Urlik.Service.Requests;
+using Shamyr.Urlik.Service.Services;
 
 namespace Shamyr.Urlik.Service.Handlers
 {
@@ -14,15 +15,18 @@ namespace Shamyr.Urlik.Service.Handlers
     private readonly ILogger fLogger;
     private readonly ILoggingContextRetriever fLoggingContextRetriever;
     private readonly IHttpContextAccessor fHttpContextAccessor;
+    private readonly IUrlService fUrlService;
 
     public GetUrlRequestHandler(
-      ILogger logger, 
+      ILogger logger,
       ILoggingContextRetriever loggingContextRetriever,
-      IHttpContextAccessor httpContextAccessor)
+      IHttpContextAccessor httpContextAccessor,
+      IUrlService urlService)
     {
       fLogger = logger;
       fLoggingContextRetriever = loggingContextRetriever;
       fHttpContextAccessor = httpContextAccessor;
+      fUrlService = urlService;
     }
 
     public async Task<string> Handle(GetUrlRequest request, CancellationToken cancellationToken)
@@ -30,7 +34,7 @@ namespace Shamyr.Urlik.Service.Handlers
       string? url = null;
       try
       {
-        url = 
+        url = await fUrlService.TryGetAsync(request.Path, cancellationToken);
       }
       catch (Exception ex)
       {

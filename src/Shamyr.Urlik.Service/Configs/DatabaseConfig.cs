@@ -4,8 +4,7 @@ namespace Shamyr.Urlik.Service.Configs
 {
   public class DatabaseConfig: IDatabaseConfig
   {
-    public string DatabaseUrl => throw new System.NotImplementedException();
-
-    public string DatabaseName => throw new System.NotImplementedException();
+    public string DatabaseUrl => EnvVariable.Get(EnvVariables._MongoUrl);
+    public string DatabaseName => EnvVariable.Get(EnvVariables._MongoDatabaseName);
   }
 }

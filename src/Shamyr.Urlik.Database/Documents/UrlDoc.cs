@@ -9,10 +9,10 @@ namespace Shamyr.Urlik.Database.Documents
   [Collection(nameof(DbCollections.Urls))]
   public class UrlDoc: DocumentBase
   {
-    public Uri Url { get; set; }
+    public string Url { get; set; }
 
     [Index(Unique = true)]
-    public string Part { get; set; }
+    public string Path { get; set; }
 
     [Index(Sparse = true)]
     public ObjectId? UserId { get; set; }

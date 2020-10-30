@@ -26,7 +26,7 @@ namespace Shamyr.Urlik.Service
 
       services.AddMediatR(typeof(Startup));
 
-      services.AddApplicationInsightsTelemetry();
+      services.AddApplicationInsightsTelemetry(AppInsightsConfig.Setup);
       services.AddApplicationInsightsLogger(RoleNames._UrlikService);
 
       services.AddDatabaseContext<DatabaseConfig>();
