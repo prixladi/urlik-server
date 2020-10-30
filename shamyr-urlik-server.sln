@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30608.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0E59330D-E51A-4EC9-80FB-262CAEE92071}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shamyr.Urlik.Database", "src\Shamyr.Urlik.Database\Shamyr.Urlik.Database.csproj", "{AA96CE04-2358-44C4-A4E6-A0EF16BA185A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shamyr.Urlik.Service", "src\Shamyr.Urlik.Service\Shamyr.Urlik.Service.csproj", "{45ED4B2E-F9B0-4F96-AD04-1A9CC406BF4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA96CE04-2358-44C4-A4E6-A0EF16BA185A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA96CE04-2358-44C4-A4E6-A0EF16BA185A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA96CE04-2358-44C4-A4E6-A0EF16BA185A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA96CE04-2358-44C4-A4E6-A0EF16BA185A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45ED4B2E-F9B0-4F96-AD04-1A9CC406BF4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45ED4B2E-F9B0-4F96-AD04-1A9CC406BF4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45ED4B2E-F9B0-4F96-AD04-1A9CC406BF4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45ED4B2E-F9B0-4F96-AD04-1A9CC406BF4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D13BF8B8-53F7-4C00-B4DE-63C76CFBA41B}
+	EndGlobalSection
+EndGlobal
