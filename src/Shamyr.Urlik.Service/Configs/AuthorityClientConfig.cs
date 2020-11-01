@@ -5,6 +5,6 @@ namespace Shamyr.Urlik.Service.Configs
 {
   public class AuthorityClientConfig: IAuthorityClientConfig
   {
-    public Uri AuthorityUrl => throw new NotImplementedException();
+    public Uri AuthorityUrl => new Uri(EnvVariable.Get(EnvVariables._AuthorityUrl));
   }
 }

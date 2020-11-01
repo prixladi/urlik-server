@@ -1,39 +1,17 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
 using Shamyr.Cloud.Swashbuckle;
+using Shamyr.Cloud.Swashbuckle.Bson;
+using Shamyr.Urlik.Service.Swagger;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Shamyr.Urlik.Service.Configs
 {
-  using SwaggerGenOptionsExtensions = Cloud.Swashbuckle.SwaggerGenOptionsExtensions;
-
   public static class SwaggerConfig
   {
-    private class AuthFilter: AuthorizedEndpointsOperationFilterBase
-    {
-      protected override OpenApiSecurityRequirement? GetSecurityRequirement()
-      {
-        var scheme = new OpenApiSecurityScheme
-        {
-          Reference = new OpenApiReference
-          {
-            Type = ReferenceType.SecurityScheme,
-            Id = SwaggerGenOptionsExtensions._SecurityDefinitionName
-          }
-        };
-
-        return new OpenApiSecurityRequirement
-        {
-          [scheme] = Array.Empty<string>()
-        };
-      }
-    }
-
     private const string _V1Route = "v1";
     private const string _V1Title = "Shamyr Urlik Service";
 
@@ -45,6 +23,8 @@ namespace Shamyr.Urlik.Service.Configs
     public static void SetupSwaggerGen(SwaggerGenOptions options)
     {
       options.OperationFilter<AuthFilter>();
+      options.OperationFilter<FlattenObjectIdOperationFilter>();
+
       options.AddIndentitySecurity();
 
       options.SwaggerDoc(_V1Route, new OpenApiInfo { Title = _V1Title, Version = _V1Route });

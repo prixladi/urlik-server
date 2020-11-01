@@ -1,21 +1,31 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+# restore
 WORKDIR /src
-COPY ["shamyr-urlik-server/shamyr-urlik-server.csproj", "shamyr-urlik-server/"]
-RUN dotnet restore "shamyr-urlik-server/shamyr-urlik-server.csproj"
-COPY . .
-WORKDIR "/src/shamyr-urlik-server"
-RUN dotnet build "shamyr-urlik-server.csproj" -c Release -o /app/build
+
+COPY src/Shamyr.Urlik.Service/Shamyr.Urlik.Service.csproj Shamyr.Urlik.Service/
+COPY src/Shamyr.Urlik.Database/Shamyr.Urlik.Database.csproj Shamyr.Urlik.Database/
+
+COPY NuGet.config .
+
+WORKDIR Shamyr.Urlik.Service
+RUN dotnet restore --configfile /src/NuGet.config
+
+# build
+WORKDIR /src
+
+COPY src/Shamyr.Urlik.Service/ Shamyr.Urlik.Service/
+COPY src/Shamyr.Urlik.Database/ Shamyr.Urlik.Database/
+
+WORKDIR Shamyr.Urlik.Service
+RUN dotnet build -c Release
 
 FROM build AS publish
-RUN dotnet publish "shamyr-urlik-server.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app
 
 FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "shamyr-urlik-server.dll"]
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "Shamyr.Urlik.Service.dll"]

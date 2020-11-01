@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Shamyr.Urlik.Service.Requests
 {
-  public class GetUrlRequest: IRequest<string>
+  public class GetUrlRequest: IRequest<string?>
   {
     public string Path { get; }
 

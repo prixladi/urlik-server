@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Shamyr.Cloud.Identity.Client.Authentication;
+using Shamyr.Cloud.Authority.Client.Authentication;
 using Shamyr.Urlik.Service.Configs;
 using Shamyr.Urlik.Service.Factories;
+using Shamyr.Urlik.Service.IoC;
 
 namespace Shamyr.Urlik.Service
 {
@@ -14,13 +15,17 @@ namespace Shamyr.Urlik.Service
       services.AddLogging(LoggingConfig.Setup);
       services.AddCors();
 
-      services.AddControllers();
+      services.AddControllers(MvcConfig.SetupMvcOptions)
+        .AddJsonOptions(MvcConfig.SetupJsonOptions);
+
       services.AddExceptionHandling();
+
+      services.AddServiceAssembly();
 
       services.AddAuthentication(options =>
       {
-        options.DefaultAuthenticateScheme = IdentityAuthenticationDefaults._AuthenticationScheme;
-        options.DefaultChallengeScheme = IdentityAuthenticationDefaults._AuthenticationScheme;
+        options.DefaultAuthenticateScheme = AuthorityAuthenticationDefaults._AuthenticationScheme;
+        options.DefaultChallengeScheme = AuthorityAuthenticationDefaults._AuthenticationScheme;
       })
       .AddAuthorityBearerAuthentication<AuthorityClientConfig, PrincipalFactory>();
 
@@ -29,7 +34,7 @@ namespace Shamyr.Urlik.Service
       services.AddApplicationInsightsTelemetry(AppInsightsConfig.Setup);
       services.AddApplicationInsightsLogger(RoleNames._UrlikService);
 
-      services.AddDatabaseContext<DatabaseConfig>();
+      services.AddDatabaseContext<DatabaseConfig, DatabaseOptions>();
       services.AddSwaggerGen(SwaggerConfig.SetupSwaggerGen);
     }
 
@@ -38,6 +43,8 @@ namespace Shamyr.Urlik.Service
       app.UseCors(CorsConfig.Setup);
       app.UseExceptionHandling();
       app.UseRouting();
+
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseSwagger(SwaggerConfig.SetupSwagger);

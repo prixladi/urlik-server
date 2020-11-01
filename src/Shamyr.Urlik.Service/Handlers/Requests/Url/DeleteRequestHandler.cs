@@ -1,36 +1,34 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Shamyr.AspNetCore.ApplicationInsights.Services;
 using Shamyr.Cloud.Authority.Client.Services;
-using Shamyr.Urlik.Service.Dtos;
 using Shamyr.Urlik.Service.Repositories;
 using Shamyr.Urlik.Service.Requests.Url;
 using Shamyr.Urlik.Service.Services;
 
-namespace Shamyr.Urlik.Service.Handler.Requests.Url
+namespace Shamyr.Urlik.Service.Handlers.Requests.Url
 {
-  public class PutRequestHandler: IRequestHandler<PutRequest>
+  public class DeleteRequestHandler: IRequestHandler<DeleteRequest>
   {
+    private readonly IUrlRepository fUrlRepository;
     private readonly ITelemetryService fTelemetryService;
     private readonly IUrlService fUrlService;
-    private readonly IUrlRepository fUrlRepository;
     private readonly IClaimsIdentityService fClaimsIdentityService;
 
-    public PutRequestHandler(
+    public DeleteRequestHandler(
+      IUrlRepository urlRepository,
       ITelemetryService telemetryService,
       IUrlService urlService,
-      IUrlRepository urlRepository,
       IClaimsIdentityService claimsIdentityService)
     {
+      fUrlRepository = urlRepository;
       fTelemetryService = telemetryService;
       fUrlService = urlService;
-      fUrlRepository = urlRepository;
       fClaimsIdentityService = claimsIdentityService;
     }
 
-    public async Task<Unit> Handle(PutRequest request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteRequest request, CancellationToken cancellationToken)
     {
       var doc = await fUrlRepository.GetAsync(request.UrlId, cancellationToken);
       if (doc == null)
@@ -40,18 +38,9 @@ namespace Shamyr.Urlik.Service.Handler.Requests.Url
       if (doc.UserId != identity.UserId)
         throw new ForbiddenException($"Current user is unable to access resource with id {request.UrlId}");
 
-      if (doc.Url != request.Model.Url && await fUrlRepository.ExistByPathAsync(request.Model.Path, cancellationToken))
-        throw new ConflictException($"Path '{request.Model.Path}' is already occuepied.");
-
       var context = fTelemetryService.GetRequestContext();
 
-      var updateDto = new UpdateUrlDto
-      {
-        Path = request.Model.Path,
-        Url = request.Model.Url
-      };
-      await fUrlService.UpdateAsync(request.UrlId, updateDto, doc, context, cancellationToken);
-
+      await fUrlService.DeleteAsync(request.UrlId, context, cancellationToken);
       return Unit.Value;
     }
   }

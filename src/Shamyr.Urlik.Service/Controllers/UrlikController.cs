@@ -11,6 +11,8 @@ namespace Shamyr.Urlik.Service.Controllers
   [Route("/")]
   public class UrlikController: ControllerBase
   {
+    private static readonly string fDefaultUrl = EnvVariable.Get(EnvVariables._DefaultUrl);
+
     private readonly ISender fSender;
 
     public UrlikController(ISender sender)
@@ -18,18 +20,30 @@ namespace Shamyr.Urlik.Service.Controllers
       fSender = sender;
     }
 
+
     /// <summary>
-    /// Redirect to url shortened by provided path or redirect to default url if not found.
+    /// Fallback root URL redirectiong to default URL.
+    /// </summary>
+    /// <response code="302">Redirected</response>
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status302Found)]
+    public IActionResult Get()
+    {
+      return Redirect(fDefaultUrl);
+    }
+
+    /// <summary>
+    /// Redirect to URL shortened by provided path or redirect to default URL if not found.
     /// </summary>
     /// <param name="path"></param>
     /// <param name="cancellationToken"></param>
-    /// <response code="302">Redirect</response>
+    /// <response code="302">Redirected</response>
     [HttpGet("{path}")]
     [ProducesResponseType(StatusCodes.Status302Found)]
     public async Task<IActionResult> GetAsync([FromRoute] string path, CancellationToken cancellationToken)
     {
-      string url = await fSender.Send(new GetUrlRequest(path), cancellationToken);
-      return Redirect(url);
+      string? url = await fSender.Send(new GetUrlRequest(path), cancellationToken);
+      return Redirect(url ?? fDefaultUrl);
     }
   }
 }

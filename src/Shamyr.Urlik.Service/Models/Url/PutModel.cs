@@ -2,14 +2,18 @@
 
 namespace Shamyr.Urlik.Service.Models.Url
 {
-  public class PutModel
+  public record PutModel
   {
     [Url]
     [Required]
-    public string Url { get; set; } = default!;
+    public string Url { get; init; } = default!;
 
+    /// <summary>
+    /// Path that will be used as shortcut
+    /// Case insensitive
+    /// </summary>
     [StringLength(Constants._MaxPathLength, MinimumLength = 5)]
     [Required]
-    public string Path { get; set; } = default!;
+    public string Path { get; init; } = default!;
   }
 }

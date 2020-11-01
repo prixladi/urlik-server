@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Shamyr.Extensions.DependencyInjection;
+using Shamyr.Urlik.Service.HostedServices;
 
 namespace Shamyr.Urlik.Service.IoC
 {
@@ -7,6 +8,8 @@ namespace Shamyr.Urlik.Service.IoC
   {
     public static void AddServiceAssembly(this IServiceCollection services)
     {
+      services.AddHostedService<RedisInitHostedService>();
+
       services.AddDefaultConventions<Startup>();
     }
   }

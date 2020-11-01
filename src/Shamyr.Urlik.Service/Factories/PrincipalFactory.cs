@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using Shamyr.Cloud.Authority.Client.Factories;
 using Shamyr.Cloud.Authority.Models;
 
@@ -13,7 +14,8 @@ namespace Shamyr.Urlik.Service.Factories
   {
     protected override Task<ClaimsIdentity> CreateIdentityAsync(IServiceProvider serviceProvider, string authenticationType, UserModel model, CancellationToken cancellationToken)
     {
-      throw new NotImplementedException();
+      var userId = new ObjectId(model.Id);
+      return Task.FromResult<ClaimsIdentity>(new UserIdentity(userId, authenticationType));
     }
 
     protected override Task<IEnumerable<string>> GetRolesAsync(IServiceProvider serviceProvider, ClaimsIdentity identity, CancellationToken cancellationToken)

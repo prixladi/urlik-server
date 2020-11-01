@@ -6,6 +6,6 @@ namespace Shamyr.Urlik.Service.Models.Url
   {
     [Url]
     [Required]
-    public string Url { get; set; } = default!;
+    public string Url { get; init; } = default!;
   }
 }

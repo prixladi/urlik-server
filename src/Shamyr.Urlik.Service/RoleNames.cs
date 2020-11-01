@@ -2,6 +2,6 @@
 {
   public static class RoleNames
   {
-    public static string _UrlikService = "Urlik service";
+    public const string _UrlikService = "Urlik service";
   }
 }

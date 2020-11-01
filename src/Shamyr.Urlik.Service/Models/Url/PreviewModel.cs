@@ -1,13 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
 
 namespace Shamyr.Urlik.Service.Models.Url
 {
   public record PreviewModel
   {
     [Required]
-    public string Url { get; set; } = default!;
+    public ObjectId Id { get; init; }
 
     [Required]
-    public string Path { get; set; } = default!;
+    public string Url { get; init; } = default!;
+
+    [Required]
+    public string Path { get; init; } = default!;
   }
 }
