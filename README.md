@@ -6,4 +6,4 @@ Url shortener server.
 
 ### `docker-compose up`
 
-Runs Authority and Identity service containers and builds images if does not exist.
+Runs containers and builds images if does not exist.
