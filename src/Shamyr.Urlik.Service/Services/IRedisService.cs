@@ -1,5 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Shamyr.Urlik.Service.Dtos;
+using StackExchange.Redis;
 
 namespace Shamyr.Urlik.Service.Services
 {
@@ -7,8 +9,9 @@ namespace Shamyr.Urlik.Service.Services
   {
     bool IsConnected { get; }
 
-    Task<string?> GetAsync(string path, CancellationToken cancellationToken);
-    Task SetAsync(string path, string url, CancellationToken cancellationToken);
-    Task UnsetAsync(string path, CancellationToken cancellationToken);
+    Task<string?> GetPathAsync(string path, CancellationToken cancellationToken);
+    Task PushHitAsync(HitDto dto, CommandFlags commandFlags, CancellationToken cancellationToken);
+    Task SetPathAsync(string path, string url, CommandFlags commandFlags, CancellationToken cancellationToken);
+    Task UnsetPathAsync(string path, CommandFlags commandFlags, CancellationToken cancellationToken);
   }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Shamyr.Text.Json;
+using Shamyr.Urlik.Service.Dtos;
 using Shamyr.Urlik.Service.Repositories;
 using StackExchange.Redis;
 
@@ -8,6 +10,8 @@ namespace Shamyr.Urlik.Service.Services
 {
   public class RedisService: IRedisService
   {
+    private const string _HitsQueueName = "hits";
+
     private readonly IDatabase fDatabase;
 
     public RedisService(IRedisDatabaseRepository redisDatabaseRepository)
@@ -17,20 +21,25 @@ namespace Shamyr.Urlik.Service.Services
 
     public bool IsConnected => fDatabase.Multiplexer.IsConnected;
 
-    public async Task SetAsync(string path, string url, CancellationToken cancellationToken)
+    public async Task SetPathAsync(string path, string url, CommandFlags commandFlags, CancellationToken cancellationToken)
     {
-      await fDatabase.StringSetAsync(new RedisKey(path), new RedisValue(url), TimeSpan.FromMinutes(30));
+      await fDatabase.StringSetAsync(path, url, expiry: TimeSpan.FromMinutes(30), flags: commandFlags);
     }
 
-    public async Task<string?> GetAsync(string path, CancellationToken cancellationToken)
+    public async Task<string?> GetPathAsync(string path, CancellationToken cancellationToken)
     {
-      var value = await fDatabase.StringGetAsync(new RedisKey(path));
-      return value;
+      return await fDatabase.StringGetAsync(path);
     }
 
-    public async Task UnsetAsync(string path, CancellationToken cancellationToken)
+    public async Task UnsetPathAsync(string path, CommandFlags commandFlags, CancellationToken cancellationToken)
     {
-      await fDatabase.KeyDeleteAsync(new RedisKey(path));
+      await fDatabase.KeyDeleteAsync(path, flags: commandFlags);
+    }
+
+    public async Task PushHitAsync(HitDto dto, CommandFlags commandFlags, CancellationToken cancellationToken)
+    {
+      var content = await JsonConvert.SerializeAsync(dto, cancellationToken);
+      await fDatabase.ListLeftPushAsync(_HitsQueueName, new RedisValue[] { content }, flags: commandFlags);
     }
   }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Shamyr.Urlik.Service.Dtos
 {
-  public class UpdateUrlDto
+  public record UpdateUrlDto
   {
-    public string Url { get; set; } = default!;
-    public string Path { get; set; } = default!;
+    public string Url { get; init; } = default!;
+    public string Path { get; init; } = default!;
   }
 }

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Shamyr.Logging;
+using StackExchange.Redis;
 
 namespace Shamyr.Urlik.Service.Services
 {
@@ -18,17 +19,22 @@ namespace Shamyr.Urlik.Service.Services
 
     public async Task<string?> TryGetUrlAsync(string path, ILoggingContext context, CancellationToken cancellationToken)
     {
-      return await ActionAsync((redis) => redis.GetAsync(path, cancellationToken), context);
+      return await ActionAsync((redis) => redis.GetPathAsync(path, cancellationToken), context);
     }
 
     public async Task SetUrlAsync(string path, string url, ILoggingContext context, CancellationToken cancellationToken)
     {
-      await ActionAsync((redis) => redis.SetAsync(path, url, cancellationToken), context);
+      await ActionAsync((redis) => redis.SetPathAsync(path, url, CommandFlags.None, cancellationToken), context);
+    }
+
+    public async Task SetUrlFireAndForgetAsync(string path, string url, ILoggingContext context, CancellationToken cancellationToken)
+    {
+      await ActionAsync((redis) => redis.SetPathAsync(path, url, CommandFlags.FireAndForget, cancellationToken), context);
     }
 
     public async Task UnsetUrlAsync(string path, ILoggingContext context, CancellationToken cancellationToken)
     {
-      await ActionAsync((redis) => redis.UnsetAsync(path, cancellationToken), context);
+      await ActionAsync((redis) => redis.UnsetPathAsync(path, CommandFlags.None, cancellationToken), context);
     }
 
     private async Task ActionAsync(Func<IRedisService, Task> func, ILoggingContext context)

@@ -16,5 +16,7 @@ namespace Shamyr.Urlik.Database.Documents
 
     [Index(Sparse = true)]
     public ObjectId? UserId { get; set; }
+
+    public int HitCount { get; set; }
   }
 }

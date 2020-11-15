@@ -17,7 +17,8 @@ namespace Shamyr.Urlik.Service.Extensions
       {
         Id = doc.Id,
         Path = doc.Path,
-        Url = doc.Url
+        Url = doc.Url,
+        HitCount = doc.HitCount
       };
     }
 
@@ -30,7 +31,8 @@ namespace Shamyr.Urlik.Service.Extensions
       {
         Id = doc.Id,
         Path = doc.Path,
-        Url = doc.Url
+        Url = doc.Url,
+        HitCount = doc.HitCount
       };
     }
 

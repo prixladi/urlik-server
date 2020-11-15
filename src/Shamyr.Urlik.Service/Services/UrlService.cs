@@ -29,7 +29,7 @@ namespace Shamyr.Urlik.Service.Services
           return null;
 
         url = doc.Url;
-        await fUrlCacheService.SetUrlAsync(path, url, context, cancellationToken);
+        await fUrlCacheService.SetUrlFireAndForgetAsync(path, url, context, cancellationToken);
       }
 
       return url;
