@@ -1,4 +1,4 @@
-# Shamyr Urlik Server
+# Urlik Server
 
 Url shortener server.
 
