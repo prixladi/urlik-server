@@ -38,7 +38,7 @@ namespace Shamyr.Urlik.Service.Handlers
       try
       {
         url = await fUrlService.TryGetAsync(request.Path, context, cancellationToken);
-        if (url == null)
+        if (url != null)
         {
           await fRedisService.PushHitAsync(new HitDto
           {

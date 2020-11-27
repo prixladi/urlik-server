@@ -25,8 +25,14 @@ namespace Shamyr.Urlik.Service.HostedServices
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-      fMultiplexer = await ConnectionMultiplexer.ConnectAsync(fRedisConfig.RedisConfiguration);
-      fDatabaseRepository.SetDatabase(fMultiplexer.GetDatabase(1));
+      fMultiplexer = await ConnectionMultiplexer.ConnectAsync(new ConfigurationOptions
+      {
+        EndPoints =
+        {
+          { fRedisConfig.Host, fRedisConfig.Port}
+        }
+      });
+      fDatabaseRepository.SetDatabase(fMultiplexer.GetDatabase());
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)

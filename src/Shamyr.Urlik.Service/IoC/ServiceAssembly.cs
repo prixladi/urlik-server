@@ -9,7 +9,8 @@ namespace Shamyr.Urlik.Service.IoC
     public static void AddServiceAssembly(this IServiceCollection services)
     {
       services.AddHostedService<RedisInitHostedService>();
-
+      services.AddHostedService<RedisTrimService>();
+      
       services.AddDefaultConventions<Startup>();
     }
   }

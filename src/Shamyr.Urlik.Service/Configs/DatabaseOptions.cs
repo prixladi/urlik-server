@@ -10,8 +10,11 @@ namespace Shamyr.Urlik.Service.Configs
   {
     public List<Assembly> MigrationAssemblies => new List<Assembly> { typeof(EnvVariables).Assembly };
     public List<Assembly> DatabaseAssemblies => new List<Assembly> { typeof(DbCollections).Assembly };
-    public bool MapDiscriminators => true;
     public int MetadataVersion => 2;
     public TimeSpan LockDuration => TimeSpan.FromMinutes(1);
+
+    public bool MapDiscriminators => true;
+    public bool UseCammelCaseConvention => true;
+    public bool IgnoreFieldsIfNull => true;
   }
 }

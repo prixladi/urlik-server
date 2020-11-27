@@ -38,8 +38,18 @@ namespace Shamyr.Urlik.Service.Services
 
     public async Task PushHitAsync(HitDto dto, CommandFlags commandFlags, CancellationToken cancellationToken)
     {
-      var content = await JsonConvert.SerializeAsync(dto, cancellationToken);
+      var content = await JsonConvert.SerializeAsync(dto, JsonConvert.CammelCaseOptions, cancellationToken);
       await fDatabase.ListLeftPushAsync(_HitsQueueName, new RedisValue[] { content }, flags: commandFlags);
+    }
+
+    public async Task TrimHitsAsync(int start, int stop,CommandFlags commandFlags, CancellationToken cancellationToken)
+    {
+      await fDatabase.ListTrimAsync(_HitsQueueName, start, stop, commandFlags);
+    }
+
+    public async Task<long> CountHitsAsync(CommandFlags commandFlags, CancellationToken cancellationToken)
+    {
+      return await fDatabase.ListLengthAsync(_HitsQueueName, commandFlags);
     }
   }
 }
