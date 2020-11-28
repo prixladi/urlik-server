@@ -16,6 +16,6 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets. DOCKER_HUB_PASSWORD }}
           repository: shamyr/urlik-server
-          dockerfile: Dockerfile
+          dockerfile: ./src/Shamyr.Urlik.Service/Dockerfile
           tags: latest
           tag_with_sha: true
