@@ -12,14 +12,14 @@ using Shamyr.Urlik.Service.Requests.Url;
 namespace Shamyr.Urlik.Service.Controllers
 {
   [ApiController]
-  [Route("api/v1/url")]
-  public class UrlController: ControllerBase
+  [Route("api/v1/urls")]
+  public class UrlsController: ControllerBase
   {
     private const string _GetUrlRoute = "GetUrl";
 
     private readonly ISender fSender;
 
-    public UrlController(ISender sender)
+    public UrlsController(ISender sender)
     {
       fSender = sender;
     }

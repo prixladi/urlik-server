@@ -24,7 +24,7 @@ services:
     ports:
       - 9595:8080
     environment:
-      API_URL: http://localhost:8080/docs/v1/swagger.json
+      API_URL: http://localhost:8000/docs/v1/swagger.json
 
   authority:
     image: shamyr/cloud/authority/service
