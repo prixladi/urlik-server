@@ -15,12 +15,12 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.11" />
     <PackageReference Include="Shamyr.AspNetCore.ApplicationInsights" Version="1.0.50" />
-    <PackageReference Include="Shamyr.Cloud.Authority.Client" Version="1.2.10" />
-    <PackageReference Include="Shamyr.Cloud.Bson" Version="1.2.10" />
-    <PackageReference Include="Shamyr.Cloud.Swashbuckle" Version="1.2.10" />
-    <PackageReference Include="Shamyr.Cloud.Swashbuckle.Bson" Version="1.2.10" />
+    <PackageReference Include="Shamyr.Cloud.Authority.Client" Version="1.2.11" />
+    <PackageReference Include="Shamyr.Cloud.Bson" Version="1.2.11" />
+    <PackageReference Include="Shamyr.Cloud.Swashbuckle" Version="1.2.11" />
+    <PackageReference Include="Shamyr.Cloud.Swashbuckle.Bson" Version="1.2.11" />
     <PackageReference Include="Shamyr.Extensions.MongoDB" Version="1.0.50" />
     <PackageReference Include="Shamyr.Text.Json" Version="1.0.50" />
     <PackageReference Include="StackExchange.Redis" Version="2.2.4" />

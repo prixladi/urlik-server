@@ -34,7 +34,7 @@ namespace Shamyr.Urlik.Service.Controllers
     /// <response code="409">Path is already occupied</response>
     [HttpPost]
     [Authorize]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(DetailModel), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> PostAsync([FromBody] PostModel model, CancellationToken cancellationToken)
@@ -52,7 +52,7 @@ namespace Shamyr.Urlik.Service.Controllers
     /// <response code="400">Model is not valid</response>
     [HttpPost("anonymous")]
     [AllowAnonymous]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(DetailModel), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> PostAsAnonymousAsync([FromBody] PostAsAnonymousModel model, CancellationToken cancellationToken)
     {

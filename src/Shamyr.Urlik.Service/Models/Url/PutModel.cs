@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Shamyr.Urlik.Service.Validation;
 
 namespace Shamyr.Urlik.Service.Models.Url
 {
@@ -13,6 +14,7 @@ namespace Shamyr.Urlik.Service.Models.Url
     /// Case insensitive
     /// </summary>
     [StringLength(Constants._MaxPathLength, MinimumLength = 5)]
+    [UrlikPath]
     [Required]
     public string Path { get; init; } = default!;
   }
