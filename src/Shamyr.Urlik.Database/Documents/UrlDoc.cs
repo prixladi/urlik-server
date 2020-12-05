@@ -1,8 +1,8 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using MongoDB.Bson;
 using Shamyr.MongoDB;
 using Shamyr.MongoDB.Attributes;
 using Shamyr.MongoDB.Indexes;
-using System;
 
 namespace Shamyr.Urlik.Database.Documents
 {

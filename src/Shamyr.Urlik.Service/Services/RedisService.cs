@@ -42,7 +42,7 @@ namespace Shamyr.Urlik.Service.Services
       await fDatabase.ListLeftPushAsync(_HitsQueueName, new RedisValue[] { content }, flags: commandFlags);
     }
 
-    public async Task TrimHitsAsync(int start, int stop,CommandFlags commandFlags, CancellationToken cancellationToken)
+    public async Task TrimHitsAsync(int start, int stop, CommandFlags commandFlags, CancellationToken cancellationToken)
     {
       await fDatabase.ListTrimAsync(_HitsQueueName, start, stop, commandFlags);
     }

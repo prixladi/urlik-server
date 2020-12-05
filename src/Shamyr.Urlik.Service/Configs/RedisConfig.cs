@@ -9,7 +9,8 @@ namespace Shamyr.Urlik.Service.Configs
 
     public int HitsCapacity
     {
-      get {
+      get
+      {
         var configCapacity = EnvVariable.TryGet(EnvVariables._RedisHitsCapacity);
         if (configCapacity is null)
           return 200; // default

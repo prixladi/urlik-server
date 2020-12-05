@@ -8,7 +8,7 @@ namespace Shamyr.Urlik.Service
     public ObjectId UserId { get; }
 
     public UserIdentity(ObjectId userId, string authType)
-      :base(authType)
+      : base(authType)
     {
       UserId = userId;
     }

@@ -10,7 +10,7 @@ namespace Shamyr.Urlik.Service.IoC
     {
       services.AddHostedService<RedisInitHostedService>();
       services.AddHostedService<RedisTrimService>();
-      
+
       services.AddDefaultConventions<Startup>();
     }
   }

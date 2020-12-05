@@ -10,11 +10,11 @@ namespace Shamyr.Urlik.Service.Models.Url
 
     [Required]
     public string Url { get; init; } = default!;
-    
+
     [Required]
     public string Path { get; init; } = default!;
 
     [Required]
-    public int HitCount { get; init; } 
+    public int HitCount { get; init; }
   }
 }
