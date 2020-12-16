@@ -1,7 +1,7 @@
 # Urlik Server
 
-Backend for [Urlik](https://github.com/prixladi/shamyr-urlik) project.<br />
-For everything to function properly should be run together with [Frontend](https://github.com/prixladi/shamyr-urlik-next).
+Backend for [Urlik](https://github.com/prixladi/urlik) project.<br />
+For everything to function properly should be run together with [Frontend](https://github.com/prixladi/urlik-next).
 
 ## Docker
 
